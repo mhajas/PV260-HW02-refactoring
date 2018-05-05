@@ -13,12 +13,14 @@ import java.util.List;
  * @author mhajas
  */
 public class Player {
+    private String name = null;
     private List<Point> playerPath = new ArrayList<Point>();
     private Direction currentDirection;
     private Color color;
     private AbstractHandler handler;
 
-    public Player(Point startPosition, Direction startDirection, Color color, AbstractHandler handler) {
+    public Player(String name, Point startPosition, Direction startDirection, Color color, AbstractHandler handler) {
+        this.name = name;
         playerPath.add(startPosition);
         this.currentDirection = startDirection;
         this.color = color;
@@ -59,5 +61,18 @@ public class Player {
 
     public void handleEvent(InputEvent e){
         handler.handleEvent(e, this);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", currentDirection=" + currentDirection +
+                ", color=" + color +
+                '}';
     }
 }

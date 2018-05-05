@@ -1,6 +1,7 @@
 package pv260.hw02;
 
 import pv260.hw02.InputHandlers.KeyboardHandler;
+import pv260.hw02.InputHandlers.MouseHandler;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -26,10 +27,11 @@ public class yourclass extends Core implements KeyListener, MouseListener,
         w.addMouseListener(this);
         w.addMouseMotionListener(this);
 
-        players.add(new Player(new Point(40,40), Direction.RIGHT, Color.GREEN,
+       /*players.add(new Player("PLAYER1",new Point(40,40), Direction.RIGHT, Color.GREEN,
                 new KeyboardHandler(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT)));
-        players.add(new Player(new Point(600,440), Direction.LEFT, Color.RED,
-                new KeyboardHandler(KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A)));
+        players.add(new Player("PLAYER3", new Point(600,440), Direction.LEFT, Color.RED,
+                new KeyboardHandler(KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A)));*/
+        players.add(new Player("PLAYER3", new Point(800,800), Direction.LEFT, Color.RED, new MouseHandler()));
     }
 
     public static void main(String[] args) {
@@ -87,6 +89,7 @@ public class yourclass extends Core implements KeyListener, MouseListener,
 
             players.forEach(p1 -> {
                 if (isConflict(newPosition, p1.getPlayerPath())) {
+                    System.out.println("Player " + p1.getName() + " lost the game :(.");
                     System.exit(0);
                 }
             });
@@ -117,7 +120,6 @@ public class yourclass extends Core implements KeyListener, MouseListener,
     }
 
     public void mouseClicked(MouseEvent e) {
-
     }
 
     public void mouseEntered(MouseEvent arg0) {
@@ -130,6 +132,7 @@ public class yourclass extends Core implements KeyListener, MouseListener,
     }
 
     public void mouseReleased(MouseEvent e) {
+        players.forEach(player -> player.handleEvent(e));
     }
 
     public void mouseDragged(MouseEvent e) {
