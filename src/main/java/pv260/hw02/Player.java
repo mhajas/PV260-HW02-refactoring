@@ -1,6 +1,11 @@
 package pv260.hw02;
 
+import pv260.hw02.InputHandlers.AbstractHandler;
+
 import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +16,13 @@ public class Player {
     private List<Point> playerPath = new ArrayList<Point>();
     private Direction currentDirection;
     private Color color;
+    private AbstractHandler handler;
 
-    public Player(Point startPosition, Direction startDirection, Color color) {
+    public Player(Point startPosition, Direction startDirection, Color color, AbstractHandler handler) {
         playerPath.add(startPosition);
         this.currentDirection = startDirection;
         this.color = color;
+        this.handler = handler;
     }
 
     public Point getCurrentPosition() {
@@ -48,5 +55,9 @@ public class Player {
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    public void handleEvent(InputEvent e){
+        handler.handleEvent(e, this);
     }
 }

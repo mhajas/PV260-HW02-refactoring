@@ -1,5 +1,7 @@
 package pv260.hw02;
 
+import pv260.hw02.InputHandlers.KeyboardHandler;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -24,8 +26,10 @@ public class yourclass extends Core implements KeyListener, MouseListener,
         w.addMouseListener(this);
         w.addMouseMotionListener(this);
 
-        players.add(new Player(new Point(40,40), Direction.RIGHT, Color.GREEN));
-        players.add(new Player(new Point(600,440), Direction.LEFT, Color.RED));
+        players.add(new Player(new Point(40,40), Direction.RIGHT, Color.GREEN,
+                new KeyboardHandler(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT)));
+        players.add(new Player(new Point(600,440), Direction.LEFT, Color.RED,
+                new KeyboardHandler(KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_D, KeyEvent.VK_A)));
     }
 
     public static void main(String[] args) {
@@ -101,43 +105,7 @@ public class yourclass extends Core implements KeyListener, MouseListener,
     }
 
     public void keyPressed(KeyEvent e) {
-        Player player1 = players.get(0);
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
-            if (player1.getCurrentDirection() != Direction.DOWN) {
-                player1.setCurrentDirection(Direction.UP);
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            if (player1.getCurrentDirection() != Direction.UP) {
-                player1.setCurrentDirection(Direction.DOWN);
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            if (player1.getCurrentDirection() != Direction.LEFT) {
-                player1.setCurrentDirection(Direction.RIGHT);
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            if (player1.getCurrentDirection() != Direction.RIGHT) {
-                player1.setCurrentDirection(Direction.LEFT);
-            }
-        }
-        
-        Player player2 = players.get(1);
-        if (e.getKeyCode() == KeyEvent.VK_W) {
-            if (player2.getCurrentDirection() != Direction.DOWN) {
-                player2.setCurrentDirection(Direction.UP);
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_S) {
-            if (player2.getCurrentDirection() != Direction.UP) {
-                player2.setCurrentDirection(Direction.DOWN);
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_D) {
-            if (player2.getCurrentDirection() != Direction.LEFT) {
-                player2.setCurrentDirection(Direction.RIGHT);
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_A) {
-            if (player2.getCurrentDirection() != Direction.RIGHT) {
-                player2.setCurrentDirection(Direction.LEFT);
-            }
-        }
+        players.forEach(player -> player.handleEvent(e));
     }
 
     public void keyReleased(KeyEvent e) {
