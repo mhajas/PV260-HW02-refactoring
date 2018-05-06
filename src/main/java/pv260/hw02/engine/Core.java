@@ -7,6 +7,7 @@ import java.awt.DisplayMode;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Window;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -16,8 +17,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Core implements KeyListener, MouseListener,
-        MouseMotionListener {
+public abstract class Core extends InputListenerCore{
 
     private static final DisplayMode modes[] =
             {
@@ -121,43 +121,12 @@ public abstract class Core implements KeyListener, MouseListener,
     public abstract void addElements(List<Element> elements);
     public abstract boolean isConflict(Point currentPosition, List<Point> alreadyExists);
 
-    public void keyPressed(KeyEvent e) {
-        elements.forEach(player -> player.handleEvent(e));
-    }
-
-    public void keyReleased(KeyEvent e) {
-
-    }
-
-    public void keyTyped(KeyEvent arg0) {
-
-    }
-
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    public void mouseEntered(MouseEvent arg0) {
-    }
-
-    public void mouseExited(MouseEvent arg0) {
-    }
-
-    public void mousePressed(MouseEvent e) {
-    }
-
-    public void mouseReleased(MouseEvent e) {
-        elements.forEach(player -> player.handleEvent(e));
-    }
-
-    public void mouseDragged(MouseEvent e) {
-
-    }
-
-    public void mouseMoved(MouseEvent e) {
-
-    }
-
     public long getGamePace() {
         return 20;
+    }
+
+    @Override
+    public void onKey(InputEvent e) {
+        elements.forEach(player -> player.handleEvent(e));
     }
 }

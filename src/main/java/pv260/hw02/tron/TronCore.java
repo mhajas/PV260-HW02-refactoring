@@ -4,10 +4,12 @@ import pv260.hw02.engine.Element;
 import pv260.hw02.engine.Core;
 import pv260.hw02.engine.Direction;
 import pv260.hw02.engine.Point;
+import pv260.hw02.tron.InputHandlers.TronKeyboardHandler;
 import pv260.hw02.tron.InputHandlers.TronMouseHandler;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 public class TronCore extends Core {
@@ -16,6 +18,8 @@ public class TronCore extends Core {
 
     @Override
     public void addElements(List<Element> elements) {
+        elements.add(new TronPlayer("PLAYER2", new Point(40,40), Direction.RIGHT, Color.GREEN,
+                new TronKeyboardHandler(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT)));
         elements.add(new TronPlayer("PLAYER3", new Point(800,800), Direction.LEFT, Color.RED, new TronMouseHandler()));
     }
 
