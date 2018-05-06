@@ -1,4 +1,4 @@
-package pv260.hw02.engine;
+package pv260.hw02.engine.entity;
 
 /**
  * @author mhajas
@@ -55,5 +55,13 @@ public class Point {
         int result = getX();
         result = 31 * result + getY();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }

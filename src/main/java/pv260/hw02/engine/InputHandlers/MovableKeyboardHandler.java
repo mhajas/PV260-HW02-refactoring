@@ -2,7 +2,7 @@ package pv260.hw02.engine.InputHandlers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pv260.hw02.engine.Direction;
+import pv260.hw02.engine.enums.Direction;
 import pv260.hw02.engine.entity.Element;
 import pv260.hw02.engine.entity.MovablePlayer;
 

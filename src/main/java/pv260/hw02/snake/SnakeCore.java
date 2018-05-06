@@ -3,25 +3,22 @@ package pv260.hw02.snake;
 import pv260.hw02.engine.InputHandlers.MovableKeyboardHandler;
 import pv260.hw02.engine.entity.Element;
 import pv260.hw02.engine.Core;
-import pv260.hw02.engine.Direction;
-import pv260.hw02.engine.Point;
+import pv260.hw02.engine.enums.Direction;
+import pv260.hw02.engine.entity.Point;
 import pv260.hw02.snake.entity.SnakeFood;
 import pv260.hw02.snake.entity.SnakePlayer;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
 public class SnakeCore extends Core {
 
-    public static final int MOVE_AMOUNT = 5;
-
     @Override
     public void addElements(List<Element> elements) {
         elements.add(new SnakePlayer("PLAYER2", new Point(40,40), Direction.RIGHT, Color.GREEN,
                 new MovableKeyboardHandler(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_RIGHT, KeyEvent.VK_LEFT)));
-        elements.add(new SnakeFood("Food", Color.RED, new Point(100, 100), sm));
+        elements.add(new SnakeFood("Food", Color.RED, new Point(100, 100)));
     }
 
     @Override
@@ -52,8 +49,7 @@ public class SnakeCore extends Core {
     }
 
     @Override
-    public void draw(Graphics2D g, Element player) {
-            g.setColor(player.getColor());
-            player.getElementsAllPoints().forEach(point -> g.fillRect(point.getX(), point.getY(), 10, 10));
+    public int getGamePace() {
+        return 70; //default value for snake
     }
 }

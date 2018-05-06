@@ -2,19 +2,13 @@ package pv260.hw02.engine;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pv260.hw02.engine.InputHandlers.MovableMouseHandler;
 import pv260.hw02.engine.entity.Element;
 import pv260.hw02.engine.entity.MovablePlayer;
-import pv260.hw02.snake.SnakeCore;
-import pv260.hw02.snake.entity.SnakePlayer;
+import pv260.hw02.engine.entity.Point;
+import pv260.hw02.presentation.GamePresentation;
 
 import java.awt.Color;
-import java.awt.DisplayMode;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Window;
 import java.awt.event.InputEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,20 +16,9 @@ public abstract class Core extends InputListenerCore{
 
     protected Logger logger = LoggerFactory.getLogger(Core.class);
 
-    private static final DisplayMode modes[] =
-            {
-                    new DisplayMode(1920,1080,32,0),
-                    new DisplayMode(1680, 1050, 32, 0),
-                    //new DisplayMode(1280,1024,32,0),
-                    new DisplayMode(800, 600, 32, 0),
-                    new DisplayMode(800, 600, 24, 0),
-                    new DisplayMode(800, 600, 16, 0),
-                    new DisplayMode(640, 480, 32, 0),
-                    new DisplayMode(640, 480, 24, 0),
-                    new DisplayMode(640, 480, 16, 0),
-            };
+    protected GamePresentation gamePresentation;
+
     private boolean running;
-    protected ScreenManager sm;
 
     protected List<Element> elements = new ArrayList<>();
 
@@ -47,26 +30,25 @@ public abstract class Core extends InputListenerCore{
         try {
             init();
             addElements(elements);
+            createStartPosition();
             gameLoop();
         } finally {
-            sm.restoreScreen();
+            gamePresentation.restoreScreen();
         }
     }
 
     public void init() {
-        sm = new ScreenManager();
-        DisplayMode dm = sm.findFirstCompatibaleMode(modes);
-        sm.setFullScreen(dm);
-        Window w = sm.getFullScreenWindow();
-        w.setFont(new Font("Arial", Font.PLAIN, 20));
-        w.setBackground(Color.WHITE);
-        w.setForeground(Color.RED);
-        w.setCursor(w.getToolkit().createCustomCursor(new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new java.awt.Point(0, 0), "null"));
         running = true;
-
-        w.addKeyListener(this);
-        w.addMouseListener(this);
-        w.addMouseMotionListener(this);
+        gamePresentation = new GamePresentation();
+        gamePresentation.getWindow().addKeyListener(this);
+        gamePresentation.getWindow().addMouseListener(this);
+        gamePresentation.getWindow().addMouseMotionListener(this);
+        GameContext.getInstance()
+                .height(gamePresentation.getHeight()/gamePresentation.getSquareSize())
+                .width(gamePresentation.getWidth()/gamePresentation.getSquareSize())
+                .background(getBackgroundColor())
+                .gamePace(this.getGamePace())
+                .initBoard();
     }
 
     public void gameLoop() {
@@ -76,39 +58,12 @@ public abstract class Core extends InputListenerCore{
         while (running) {
             long timePassed = System.currentTimeMillis() - cumTime;
             cumTime += timePassed;
-            Graphics2D g = sm.getGraphics();
-
-            // Make logic of game
             gameLogic();
-
-            // Draw result
-            drawBackground(g);
-            drawAllElements(g);
-
-            g.dispose();
-            sm.update();
-
-            try {
-                Thread.sleep(getGamePace());
-            } catch (Exception ex) {
-            }
+            gamePresentation.refresh(GameContext.getInstance());
         }
     }
 
-    protected void drawAllElements(Graphics2D g) {
-        elements.forEach(player -> draw(g, player));
-    }
-
-    protected abstract void draw(Graphics2D g, Element player);
-
-
     public abstract Color getBackgroundColor();
-
-    public void drawBackground(Graphics2D g) {
-        g.setColor(getBackgroundColor());
-        g.fillRect(0, 0, sm.getWidth(), sm.getHeight());
-    }
-
 
     public void gameLogic() {
         for (Element e : elements) {
@@ -119,7 +74,7 @@ public abstract class Core extends InputListenerCore{
 
             MovablePlayer movablePlayer = (MovablePlayer) e;
 
-            Point newPosition = movablePlayer.computeNextStep(getMoveAmount(), sm);
+            Point newPosition = movablePlayer.computeNextStep();
 
             checkValidity(movablePlayer, newPosition);
 
@@ -127,15 +82,20 @@ public abstract class Core extends InputListenerCore{
         }
     }
 
-    protected void checkValidity(Element element, Point newPosition) {
-
+    private void createStartPosition() {
+        elements.forEach(element -> {
+            element.getElementsAllPoints().forEach(point -> {
+                GameContext.getInstance().changeColor(point, element.getColor());
+            });
+        });
     }
 
+    protected void checkValidity(Element element, Point newPosition) {}
     public abstract void addElements(List<Element> elements);
     public abstract boolean isConflict(Point currentPosition, List<Point> alreadyExists);
 
-    public long getGamePace() {
-        return 40;
+    public int getGamePace(){
+        return 40; //default value for all games
     }
 
     @Override
@@ -143,7 +103,4 @@ public abstract class Core extends InputListenerCore{
         elements.forEach(player -> player.handleEvent(e));
     }
 
-    public int getMoveAmount() {
-        return 10;
-    }
 }

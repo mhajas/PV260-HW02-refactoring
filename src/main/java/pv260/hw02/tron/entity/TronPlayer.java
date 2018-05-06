@@ -1,8 +1,9 @@
 package pv260.hw02.tron.entity;
 
-import pv260.hw02.engine.Direction;
+import pv260.hw02.engine.GameContext;
+import pv260.hw02.engine.enums.Direction;
 import pv260.hw02.engine.InputHandlers.AbstractHandler;
-import pv260.hw02.engine.Point;
+import pv260.hw02.engine.entity.Point;
 import pv260.hw02.engine.entity.Element;
 import pv260.hw02.engine.entity.MovablePlayer;
 
@@ -20,6 +21,7 @@ public class TronPlayer extends MovablePlayer {
     @Override
     public void executeStep(Point newPosition) {
         playerPath.add(newPosition);
+        GameContext.getInstance().changeColor(newPosition, this.color);
     }
 
     @Override

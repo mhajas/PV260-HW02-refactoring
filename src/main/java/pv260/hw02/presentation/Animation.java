@@ -1,4 +1,4 @@
-package pv260.hw02.engine;
+package pv260.hw02.presentation;
 
 import java.awt.*;
 import java.util.ArrayList;

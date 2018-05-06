@@ -2,7 +2,8 @@ package pv260.hw02.engine.InputHandlers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pv260.hw02.engine.Direction;
+import pv260.hw02.engine.entity.MovablePlayer;
+import pv260.hw02.engine.enums.Direction;
 import pv260.hw02.engine.entity.Element;
 import pv260.hw02.tron.entity.TronPlayer;
 
@@ -21,26 +22,26 @@ public class MovableMouseHandler extends AbstractHandler{
             return;
         }
 
-        if (!(player instanceof TronPlayer)) {
+        if (!(player instanceof MovablePlayer)) {
             return;
         }
 
-        TronPlayer tronPlayer = (TronPlayer) player;
+        MovablePlayer movablePlayer = (MovablePlayer) player;
 
         MouseEvent e = (MouseEvent) ie;
-        logger.info("Player " + tronPlayer + "pressed key on mouse with id: " + e.getButton());
+        logger.info("Player " + movablePlayer + "pressed key on mouse with id: " + e.getButton());
 
         switch (e.getButton()) { //1-left 3-right
             case 1:
-                rotate90Left(tronPlayer);
+                rotate90Left(movablePlayer);
                 break;
             case 3:
-                rotate90Right(tronPlayer);
+                rotate90Right(movablePlayer);
                 break;
         }
     }
 
-    private void rotate90Left(TronPlayer player){
+    private void rotate90Left(MovablePlayer player){
         switch (player.getCurrentDirection()){
             case UP:
                 player.setCurrentDirection(Direction.LEFT);
@@ -57,7 +58,7 @@ public class MovableMouseHandler extends AbstractHandler{
         }
     }
 
-    private void rotate90Right(TronPlayer player){
+    private void rotate90Right(MovablePlayer player){
         switch (player.getCurrentDirection()){
             case UP:
                 player.setCurrentDirection(Direction.RIGHT);
