@@ -1,4 +1,6 @@
-package pv260.hw02.engine;
+package pv260.hw02.engine.entity;
+
+import pv260.hw02.engine.Point;
 
 import java.awt.Color;
 import java.awt.event.InputEvent;
@@ -13,5 +15,6 @@ public interface Element {
     Color getColor();
     void handleEvent(InputEvent e);
     List<Point> getElementsAllPoints();
-    void resolveConflict(Element conflictingParty);
+    void hitSomebody(Element otherParty);
+    void gotHit(Element otherParty);
 }

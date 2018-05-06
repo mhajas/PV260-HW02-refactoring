@@ -1,6 +1,12 @@
 package pv260.hw02.engine;
 
-import pv260.hw02.tron.TronCore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import pv260.hw02.engine.InputHandlers.MovableMouseHandler;
+import pv260.hw02.engine.entity.Element;
+import pv260.hw02.engine.entity.MovablePlayer;
+import pv260.hw02.snake.SnakeCore;
+import pv260.hw02.snake.entity.SnakePlayer;
 
 import java.awt.Color;
 import java.awt.DisplayMode;
@@ -8,16 +14,13 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Window;
 import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Core extends InputListenerCore{
+
+    protected Logger logger = LoggerFactory.getLogger(Core.class);
 
     private static final DisplayMode modes[] =
             {
@@ -48,10 +51,6 @@ public abstract class Core extends InputListenerCore{
         } finally {
             sm.restoreScreen();
         }
-    }
-
-    public static void main(String[] args) {
-        new TronCore().run();
     }
 
     public void init() {
@@ -113,20 +112,38 @@ public abstract class Core extends InputListenerCore{
 
     public void gameLogic() {
         for (Element e : elements) {
-            gameLogic(e);
+
+            if (!(e instanceof MovablePlayer)) {
+                return;
+            }
+
+            MovablePlayer movablePlayer = (MovablePlayer) e;
+
+            Point newPosition = movablePlayer.computeNextStep(getMoveAmount(), sm);
+
+            checkValidity(movablePlayer, newPosition);
+
+            movablePlayer.executeStep(newPosition);
         }
     }
 
-    public abstract void gameLogic(Element element);
+    protected void checkValidity(Element element, Point newPosition) {
+
+    }
+
     public abstract void addElements(List<Element> elements);
     public abstract boolean isConflict(Point currentPosition, List<Point> alreadyExists);
 
     public long getGamePace() {
-        return 20;
+        return 40;
     }
 
     @Override
     public void onKey(InputEvent e) {
         elements.forEach(player -> player.handleEvent(e));
+    }
+
+    public int getMoveAmount() {
+        return 10;
     }
 }

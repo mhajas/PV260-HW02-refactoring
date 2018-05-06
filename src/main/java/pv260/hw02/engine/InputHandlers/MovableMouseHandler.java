@@ -1,18 +1,19 @@
-package pv260.hw02.tron.InputHandlers;
+package pv260.hw02.engine.InputHandlers;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pv260.hw02.engine.Direction;
-import pv260.hw02.engine.Element;
-import pv260.hw02.tron.TronPlayer;
-import pv260.hw02.engine.InputHandlers.AbstractHandler;
+import pv260.hw02.engine.entity.Element;
+import pv260.hw02.tron.entity.TronPlayer;
 
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 
-public class TronMouseHandler extends AbstractHandler {
-
-    Logger logger = LoggerFactory.getLogger(TronKeyboardHandler.class);
+/**
+ * @author mhajas
+ */
+public class MovableMouseHandler extends AbstractHandler{
+    Logger logger = LoggerFactory.getLogger(MovableMouseHandler.class);
 
     @Override
     public void handleEvent(InputEvent ie, Element player) {

@@ -1,7 +1,7 @@
 package pv260.hw02.engine.InputHandlers;
 
 
-import pv260.hw02.engine.Element;
+import pv260.hw02.engine.entity.Element;
 
 import java.awt.event.InputEvent;
 
