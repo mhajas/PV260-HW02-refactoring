@@ -3,6 +3,7 @@ package pv260.hw02.engine.entity;
 import pv260.hw02.engine.GameContext;
 import pv260.hw02.engine.enums.Direction;
 import pv260.hw02.engine.InputHandlers.AbstractHandler;
+import pv260.hw02.presentation.Point;
 
 import java.awt.Color;
 import java.awt.event.InputEvent;

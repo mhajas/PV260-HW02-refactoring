@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pv260.hw02.engine.entity.Element;
 import pv260.hw02.engine.entity.MovablePlayer;
-import pv260.hw02.engine.entity.Point;
+import pv260.hw02.presentation.Point;
 import pv260.hw02.presentation.GamePresentation;
 
 import java.awt.Color;
@@ -59,7 +59,7 @@ public abstract class Core extends InputListenerCore{
             long timePassed = System.currentTimeMillis() - cumTime;
             cumTime += timePassed;
             gameLogic();
-            gamePresentation.refresh(GameContext.getInstance());
+            gamePresentation.refresh(GameContext.getInstance().getGameBoard(), GameContext.getInstance().getGamePace());
         }
     }
 

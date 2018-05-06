@@ -4,7 +4,7 @@ import pv260.hw02.engine.InputHandlers.MovableKeyboardHandler;
 import pv260.hw02.engine.entity.Element;
 import pv260.hw02.engine.Core;
 import pv260.hw02.engine.enums.Direction;
-import pv260.hw02.engine.entity.Point;
+import pv260.hw02.presentation.Point;
 import pv260.hw02.snake.entity.SnakeFood;
 import pv260.hw02.snake.entity.SnakePlayer;
 

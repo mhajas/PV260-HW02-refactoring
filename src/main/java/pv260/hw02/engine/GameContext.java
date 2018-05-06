@@ -2,7 +2,7 @@ package pv260.hw02.engine;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pv260.hw02.engine.entity.Point;
+import pv260.hw02.presentation.Point;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ public class GameContext {
 
     private static GameContext instance = new GameContext();
 
-    private Map<pv260.hw02.engine.entity.Point,Color> gameBoard = new HashMap<>();
+    private Map<Point,Color> gameBoard = new HashMap<>();
     private int width;
     private int height;
     private Color background;
@@ -35,11 +35,11 @@ public class GameContext {
         return this;
     }
 
-    public void changeColor(pv260.hw02.engine.entity.Point point, Color color){
+    public void changeColor(Point point, Color color){
         gameBoard.put(point, color);
     }
 
-    public Map<pv260.hw02.engine.entity.Point, Color> getGameBoard() {
+    public Map<Point, Color> getGameBoard() {
         return gameBoard;
     }
 
@@ -68,7 +68,7 @@ public class GameContext {
         logger.info("The game was speeded down: " + gamePace);
     }
 
-    public void makePointDefault(pv260.hw02.engine.entity.Point point){
+    public void makePointDefault(Point point){
         gameBoard.put(point, background);
     }
 

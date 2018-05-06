@@ -1,4 +1,4 @@
-package pv260.hw02.engine.entity;
+package pv260.hw02.presentation;
 
 /**
  * @author mhajas

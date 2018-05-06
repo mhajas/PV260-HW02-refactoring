@@ -41,6 +41,12 @@ public class MovableKeyboardHandler extends AbstractHandler {
         MovablePlayer movablePlayer = (MovablePlayer) element;
 
         KeyEvent e = (KeyEvent) ie;
+
+        if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            System.out.println("Game was terminated by USER");
+            System.exit(0);
+        }
+
         logger.info("Player " + movablePlayer + "pressed key on keyboard with id: " + e.getKeyCode());
 
         if (e.getKeyCode() == up) {

@@ -4,6 +4,7 @@ import pv260.hw02.engine.GameContext;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Map;
 
 public class GamePresentation {
 
@@ -35,19 +36,19 @@ public class GamePresentation {
         w.setCursor(w.getToolkit().createCustomCursor(new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new java.awt.Point(0, 0), "null"));
     }
 
-    public void refresh(GameContext board){
+    public void refresh(Map<Point, Color> board, int gamePace){
         Graphics2D g = sm.getGraphics();
         drawAllElements(g, board);
         g.dispose();
         sm.update();
         try {
-            Thread.sleep(board.getGamePace());
+            Thread.sleep(gamePace);
         } catch (Exception ex) {
         }
     }
 
-    private void drawAllElements(Graphics2D g, GameContext board) {
-        board.getGameBoard().forEach((point, color) ->{
+    private void drawAllElements(Graphics2D g, Map<Point, Color> board) {
+        board.forEach((point, color) ->{
             g.setColor(color);
             g.fillRect(point.getX()* SQUARE_SIZE, point.getY() * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
         });

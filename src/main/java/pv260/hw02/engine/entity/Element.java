@@ -1,5 +1,7 @@
 package pv260.hw02.engine.entity;
 
+import pv260.hw02.presentation.Point;
+
 import java.awt.Color;
 import java.awt.event.InputEvent;
 import java.util.List;

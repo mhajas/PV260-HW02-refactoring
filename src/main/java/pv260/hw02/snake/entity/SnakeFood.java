@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pv260.hw02.engine.GameContext;
 import pv260.hw02.engine.entity.Element;
-import pv260.hw02.engine.entity.Point;
+import pv260.hw02.presentation.Point;
 
 import java.awt.Color;
 import java.awt.event.InputEvent;
