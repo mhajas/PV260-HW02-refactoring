@@ -57,7 +57,7 @@ public class GameContext {
 
     public void speedUpGamePace(int numberOf) {
         this.gamePace = this.gamePace - numberOf;
-        if(this.gamePace<0){
+        if(this.gamePace<=0){
             this.gamePace = 10;
         }
         logger.info("The game was speeded up: " + gamePace);
