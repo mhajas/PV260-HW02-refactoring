@@ -1,25 +1,26 @@
-package pv260.hw02;
+package pv260.hw02.tron;
 
-import pv260.hw02.InputHandlers.AbstractHandler;
+import pv260.hw02.engine.InputHandlers.AbstractHandler;
+import pv260.hw02.engine.Direction;
+import pv260.hw02.engine.Player;
+import pv260.hw02.engine.Point;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author mhajas
  */
-public class Player {
+public class TronPlayer implements Player {
     private String name = null;
-    private List<Point> playerPath = new ArrayList<Point>();
+    private List<pv260.hw02.engine.Point> playerPath = new ArrayList<pv260.hw02.engine.Point>();
     private Direction currentDirection;
     private Color color;
     private AbstractHandler handler;
 
-    public Player(String name, Point startPosition, Direction startDirection, Color color, AbstractHandler handler) {
+    public TronPlayer(String name, pv260.hw02.engine.Point startPosition, Direction startDirection, Color color, AbstractHandler handler) {
         this.name = name;
         playerPath.add(startPosition);
         this.currentDirection = startDirection;
@@ -27,7 +28,7 @@ public class Player {
         this.handler = handler;
     }
 
-    public Point getCurrentPosition() {
+    public pv260.hw02.engine.Point getCurrentPosition() {
         return playerPath.get(playerPath.size() - 1);
     }
 
@@ -39,11 +40,11 @@ public class Player {
         this.currentDirection = currentDirection;
     }
 
-    public void addPoint(Point p) {
+    public void addPoint(pv260.hw02.engine.Point p) {
         playerPath.add(p);
     }
 
-    public List<Point> getPlayerPath() {
+    public List<pv260.hw02.engine.Point> getPlayerPath() {
         return playerPath;
     }
 
@@ -53,6 +54,11 @@ public class Player {
 
     public Color getColor() {
         return color;
+    }
+
+    @Override
+    public List<Point> getPlayersConflictingPoints() {
+        return getPlayerPath();
     }
 
     public void setColor(Color color) {

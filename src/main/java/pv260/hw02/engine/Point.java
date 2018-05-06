@@ -1,4 +1,4 @@
-package pv260.hw02;
+package pv260.hw02.engine;
 
 /**
  * @author mhajas
@@ -7,17 +7,17 @@ public class Point {
     private int x;
     private int y;
 
-    Point(int x, int y) {
+    public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    Point() {
+    public Point() {
         x = 0;
         y = 0;
     }
 
-    Point(Point copy) {
+    public Point(Point copy) {
         x = copy.x;
         y = copy.y;
 

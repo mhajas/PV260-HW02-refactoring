@@ -1,6 +1,7 @@
-package pv260.hw02.InputHandlers;
+package pv260.hw02.engine.InputHandlers;
 
-import pv260.hw02.Player;
+
+import pv260.hw02.engine.Player;
 
 import java.awt.event.InputEvent;
 

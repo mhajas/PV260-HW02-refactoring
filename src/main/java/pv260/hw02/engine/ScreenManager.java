@@ -1,4 +1,4 @@
-package pv260.hw02;
+package pv260.hw02.engine;
 
 import javax.swing.*;
 import java.awt.*;
