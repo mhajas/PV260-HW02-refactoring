@@ -1,11 +1,11 @@
 package pv260.hw02.tron;
 
-import pv260.hw02.engine.InputHandlers.AbstractHandler;
 import pv260.hw02.engine.Direction;
+import pv260.hw02.engine.InputHandlers.AbstractHandler;
 import pv260.hw02.engine.Player;
 import pv260.hw02.engine.Point;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.InputEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +15,12 @@ import java.util.List;
  */
 public class TronPlayer implements Player {
     private String name = null;
-    private List<pv260.hw02.engine.Point> playerPath = new ArrayList<pv260.hw02.engine.Point>();
+    private List<Point> playerPath = new ArrayList<>();
     private Direction currentDirection;
     private Color color;
     private AbstractHandler handler;
 
-    public TronPlayer(String name, pv260.hw02.engine.Point startPosition, Direction startDirection, Color color, AbstractHandler handler) {
+    public TronPlayer(String name, Point startPosition, Direction startDirection, Color color, AbstractHandler handler) {
         this.name = name;
         playerPath.add(startPosition);
         this.currentDirection = startDirection;
@@ -28,7 +28,7 @@ public class TronPlayer implements Player {
         this.handler = handler;
     }
 
-    public pv260.hw02.engine.Point getCurrentPosition() {
+    public Point getCurrentPosition() {
         return playerPath.get(playerPath.size() - 1);
     }
 
@@ -40,11 +40,11 @@ public class TronPlayer implements Player {
         this.currentDirection = currentDirection;
     }
 
-    public void addPoint(pv260.hw02.engine.Point p) {
+    public void addPoint(Point p) {
         playerPath.add(p);
     }
 
-    public List<pv260.hw02.engine.Point> getPlayerPath() {
+    public List<Point> getPlayerPath() {
         return playerPath;
     }
 

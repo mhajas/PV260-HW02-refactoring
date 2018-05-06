@@ -1,5 +1,6 @@
 package pv260.hw02.tron;
 
+import pv260.hw02.engine.Player;
 import pv260.hw02.engine.Core;
 import pv260.hw02.engine.Direction;
 import pv260.hw02.engine.Player;

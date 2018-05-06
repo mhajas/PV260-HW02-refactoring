@@ -1,6 +1,6 @@
 package pv260.hw02.engine;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.InputEvent;
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
 public interface Player {
 
     void handleEvent(InputEvent e);
-    void addPoint(pv260.hw02.engine.Point p);
+    void addPoint(Point p);
     String getName();
     Color getColor();
     List<Point> getPlayersConflictingPoints();

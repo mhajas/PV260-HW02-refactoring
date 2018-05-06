@@ -1,9 +1,12 @@
 package pv260.hw02.engine;
 
 import pv260.hw02.tron.TronCore;
-import pv260.hw02.tron.TronPlayer;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.DisplayMode;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.Window;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -162,5 +165,4 @@ public abstract class Core implements KeyListener, MouseListener,
     public void mouseMoved(MouseEvent e) {
 
     }
-
 }
