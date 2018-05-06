@@ -90,7 +90,7 @@ public abstract class Core implements KeyListener, MouseListener,
             sm.update();
 
             try {
-                Thread.sleep(20);
+                Thread.sleep(getGamePace());
             } catch (Exception ex) {
             }
         }
@@ -164,5 +164,9 @@ public abstract class Core implements KeyListener, MouseListener,
 
     public void mouseMoved(MouseEvent e) {
 
+    }
+
+    public long getGamePace() {
+        return 20;
     }
 }
