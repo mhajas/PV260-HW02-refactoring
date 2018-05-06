@@ -3,7 +3,7 @@ package pv260.hw02.tron.InputHandlers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import pv260.hw02.engine.Direction;
-import pv260.hw02.engine.Player;
+import pv260.hw02.engine.Element;
 import pv260.hw02.tron.TronPlayer;
 import pv260.hw02.engine.InputHandlers.AbstractHandler;
 
@@ -15,7 +15,7 @@ public class TronMouseHandler extends AbstractHandler {
     Logger logger = LoggerFactory.getLogger(TronKeyboardHandler.class);
 
     @Override
-    public void handleEvent(InputEvent ie, Player player) {
+    public void handleEvent(InputEvent ie, Element player) {
         if (!(ie instanceof MouseEvent)) {
             return;
         }

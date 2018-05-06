@@ -1,9 +1,8 @@
 package pv260.hw02.tron;
 
-import pv260.hw02.engine.Player;
+import pv260.hw02.engine.Element;
 import pv260.hw02.engine.Core;
 import pv260.hw02.engine.Direction;
-import pv260.hw02.engine.Player;
 import pv260.hw02.engine.Point;
 import pv260.hw02.tron.InputHandlers.TronMouseHandler;
 
@@ -16,8 +15,8 @@ public class TronCore extends Core {
     public static final int MOVE_AMOUNT = 5;
 
     @Override
-    public void addPlayers(List<Player> players) {
-        players.add(new TronPlayer("PLAYER3", new Point(800,800), Direction.LEFT, Color.RED, new TronMouseHandler()));
+    public void addElements(List<Element> elements) {
+        elements.add(new TronPlayer("PLAYER3", new Point(800,800), Direction.LEFT, Color.RED, new TronMouseHandler()));
     }
 
     @Override
@@ -25,13 +24,7 @@ public class TronCore extends Core {
         return alreadyExists.stream().filter(point -> point.equals(currentPosition)).toArray().length != 0;
     }
 
-    @Override
-    public Point nextStep(Player player) {
-        if (!(player instanceof TronPlayer)) {
-            return null;
-        }
-
-        TronPlayer tronPlayer = (TronPlayer) player;
+    public Point nextStep(TronPlayer tronPlayer) {
 
         Point currentPosition = tronPlayer.getCurrentPosition();
         if (currentPosition == null) {
@@ -78,8 +71,27 @@ public class TronCore extends Core {
     }
 
     @Override
-    public void draw(Graphics2D g, Player player) {
+    public void gameLogic(Element element) {
+        if (!(element instanceof TronPlayer)) {
+            return;
+        }
+
+        TronPlayer tronPlayer = (TronPlayer) element;
+
+        Point newPosition = nextStep(tronPlayer);
+
+        elements.forEach(p1 -> {
+            if (isConflict(newPosition, p1.getElementsAllPoints())) {
+                tronPlayer.resolveConflict(element);
+            }
+        });
+
+        tronPlayer.addPoint(newPosition);
+    }
+
+    @Override
+    public void draw(Graphics2D g, Element player) {
             g.setColor(player.getColor());
-            player.getPlayersConflictingPoints().forEach(point -> g.fillRect(point.getX(), point.getY(), 10, 10));
+            player.getElementsAllPoints().forEach(point -> g.fillRect(point.getX(), point.getY(), 10, 10));
     }
 }

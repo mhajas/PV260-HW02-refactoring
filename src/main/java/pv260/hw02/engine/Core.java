@@ -21,7 +21,7 @@ public abstract class Core implements KeyListener, MouseListener,
 
     private static final DisplayMode modes[] =
             {
-                    //new DisplayMode(1920,1080,32,0),
+                    new DisplayMode(1920,1080,32,0),
                     new DisplayMode(1680, 1050, 32, 0),
                     //new DisplayMode(1280,1024,32,0),
                     new DisplayMode(800, 600, 32, 0),
@@ -34,7 +34,7 @@ public abstract class Core implements KeyListener, MouseListener,
     private boolean running;
     protected ScreenManager sm;
 
-    private List<Player> players = new ArrayList<>();
+    protected List<Element> elements = new ArrayList<>();
 
     public void stop() {
         running = false;
@@ -43,7 +43,7 @@ public abstract class Core implements KeyListener, MouseListener,
     public void run() {
         try {
             init();
-            addPlayers(players);
+            addElements(elements);
             gameLoop();
         } finally {
             sm.restoreScreen();
@@ -84,7 +84,7 @@ public abstract class Core implements KeyListener, MouseListener,
 
             // Draw result
             drawBackground(g);
-            drawAllPlayers(g);
+            drawAllElements(g);
 
             g.dispose();
             sm.update();
@@ -96,11 +96,11 @@ public abstract class Core implements KeyListener, MouseListener,
         }
     }
 
-    protected void drawAllPlayers(Graphics2D g) {
-        players.forEach(player -> draw(g, player));
+    protected void drawAllElements(Graphics2D g) {
+        elements.forEach(player -> draw(g, player));
     }
 
-    protected abstract void draw(Graphics2D g, Player player);
+    protected abstract void draw(Graphics2D g, Element player);
 
 
     public abstract Color getBackgroundColor();
@@ -112,26 +112,17 @@ public abstract class Core implements KeyListener, MouseListener,
 
 
     public void gameLogic() {
-        for (Player p : players) {
-            Point newPosition = nextStep(p);
-
-            players.forEach(p1 -> {
-                if (isConflict(newPosition, p1.getPlayersConflictingPoints())) {
-                    System.out.println("Player " + p1.getName() + " lost the game :(.");
-                    System.exit(0);
-                }
-            });
-
-            p.addPoint(newPosition);
+        for (Element e : elements) {
+            gameLogic(e);
         }
     }
 
-    public abstract void addPlayers(List<Player> players);
+    public abstract void gameLogic(Element element);
+    public abstract void addElements(List<Element> elements);
     public abstract boolean isConflict(Point currentPosition, List<Point> alreadyExists);
-    public abstract Point nextStep(Player player);
 
     public void keyPressed(KeyEvent e) {
-        players.forEach(player -> player.handleEvent(e));
+        elements.forEach(player -> player.handleEvent(e));
     }
 
     public void keyReleased(KeyEvent e) {
@@ -155,7 +146,7 @@ public abstract class Core implements KeyListener, MouseListener,
     }
 
     public void mouseReleased(MouseEvent e) {
-        players.forEach(player -> player.handleEvent(e));
+        elements.forEach(player -> player.handleEvent(e));
     }
 
     public void mouseDragged(MouseEvent e) {

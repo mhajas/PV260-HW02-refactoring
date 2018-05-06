@@ -2,7 +2,7 @@ package pv260.hw02.tron;
 
 import pv260.hw02.engine.Direction;
 import pv260.hw02.engine.InputHandlers.AbstractHandler;
-import pv260.hw02.engine.Player;
+import pv260.hw02.engine.Element;
 import pv260.hw02.engine.Point;
 
 import java.awt.Color;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author mhajas
  */
-public class TronPlayer implements Player {
+public class TronPlayer implements Element {
     private String name = null;
     private List<Point> playerPath = new ArrayList<>();
     private Direction currentDirection;
@@ -57,7 +57,7 @@ public class TronPlayer implements Player {
     }
 
     @Override
-    public List<Point> getPlayersConflictingPoints() {
+    public List<Point> getElementsAllPoints() {
         return getPlayerPath();
     }
 
@@ -67,6 +67,12 @@ public class TronPlayer implements Player {
 
     public void handleEvent(InputEvent e){
         handler.handleEvent(e, this);
+    }
+
+    @Override
+    public void resolveConflict(Element conflictingParty) {
+        System.out.println("Player " + getName() + " lost the game :(.");
+        System.exit(0);
     }
 
     public String getName() {

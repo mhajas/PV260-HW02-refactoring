@@ -7,11 +7,11 @@ import java.util.List;
 /**
  * @author mhajas
  */
-public interface Player {
+public interface Element {
 
-    void handleEvent(InputEvent e);
-    void addPoint(Point p);
     String getName();
     Color getColor();
-    List<Point> getPlayersConflictingPoints();
+    void handleEvent(InputEvent e);
+    List<Point> getElementsAllPoints();
+    void resolveConflict(Element conflictingParty);
 }
