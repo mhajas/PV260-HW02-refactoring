@@ -19,7 +19,7 @@ public class SnakeFood implements Element {
 
     Logger logger = LoggerFactory.getLogger(SnakeFood.class);
 
-    private String name = null;
+    private String name;
     private List<Point> foodPoints = new ArrayList<>();
     private Color color;
 
@@ -32,11 +32,10 @@ public class SnakeFood implements Element {
     public void changePosition() {
         Random rand = new Random();
         foodPoints.clear();
-        int x = rand.nextInt(GameContext.getInstance().getWidth());
-        x = x - (x % 10);
-        int y = rand.nextInt(GameContext.getInstance().getHeight());
-        y = y - (y % 10);
-        Point newPoint = new Point(x, y);
+
+        Point newPoint = new Point(rand.nextInt(GameContext.getInstance().getWidth()),
+                rand.nextInt(GameContext.getInstance().getHeight()));
+
         foodPoints.add(newPoint);
         GameContext.getInstance().changeColor(newPoint, color);
     }
