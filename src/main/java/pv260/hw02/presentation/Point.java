@@ -1,4 +1,4 @@
-package pv260.hw02;
+package pv260.hw02.presentation;
 
 /**
  * @author mhajas
@@ -7,17 +7,17 @@ public class Point {
     private int x;
     private int y;
 
-    Point(int x, int y) {
+    public Point(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    Point() {
+    public Point() {
         x = 0;
         y = 0;
     }
 
-    Point(Point copy) {
+    public Point(Point copy) {
         x = copy.x;
         y = copy.y;
 
@@ -55,5 +55,13 @@ public class Point {
         int result = getX();
         result = 31 * result + getY();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Point{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }
